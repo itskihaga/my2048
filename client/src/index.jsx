@@ -3,7 +3,8 @@ import { render } from 'react-dom';
 import App from '@/components/App';
 import submit from '@/reducers/toggle';
 import { createStore } from 'redux';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
+import '@/style.scss';
 
 const store = createStore(submit);
 

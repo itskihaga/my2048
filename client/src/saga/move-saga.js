@@ -1,9 +1,10 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
 
-const api = dir => new Promise(res => setTimeout(() => res([[1,2,3],[dir,dir,dir]]),500));
+const api = arg => new Promise(res => setTimeout(() => res([{address:{x:2,y:3},value:arg.direction}]),500));
 
 const task = function* (action) {
-    const cells = yield call(api,action.direction);
+    const {direction,token} = action;
+    const cells = yield call(api,{direction,token});
     yield put({type:"CELLS_FETCHED",cells})
 }
 

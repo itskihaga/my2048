@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import Box from '@/components/Box';
+import Box from '@/components/box/BoxAdaptor';
 import Start from '@/components/start/StartAdaptor';
 import Controller from '@/components/controller/ControllerAdaptor';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
     render() {
@@ -11,16 +11,11 @@ class App extends React.Component {
         }
         return (
             <div className="center">
-                <Box cells={this.props.cells}/>
+                <Box/>
                 <Controller/>
             </div>
         );
     }
 }
 
-const state2prop = state => {
-    //TODO
-    return state;
-}
-
-export default connect(state2prop)(App);
+export default connect(state => state)(App);

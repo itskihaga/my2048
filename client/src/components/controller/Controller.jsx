@@ -2,7 +2,7 @@ import React from 'react';
 
 class Controller extends React.Component {
     render() {
-        const props = flg => ({onClick:this.props.submit.bind(this,flg)});
+        const props = flg => ({onClick:this.props.submit.bind(this,{direction:flg,token:this.props.token})});
         return (
             <div className="tt48-controller">
                 <div>

@@ -10,10 +10,7 @@ import sagas from './saga'
 import '@/style.scss';
 
 const sagaMiddleware = createSagaMiddleware()
-
 const store = createStore(submit,{cells:null},applyMiddleware(sagaMiddleware,logger));
-
-sagaMiddleware.run(sagas);
 
 render(
     <Provider store={store}>
@@ -21,3 +18,5 @@ render(
     </Provider>, 
     document.getElementById('app')
 );
+
+sagaMiddleware.run(sagas);

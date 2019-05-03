@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 const dispatch2props = dispatch => {
     return {
-        submit({direction,token}){
-            dispatch({type:"REQUEST_MOVE",direction,token})
+        submit(direction){
+            dispatch({type:"REQUEST_MOVE",direction,token:this.props.token})
         }
     }
 }

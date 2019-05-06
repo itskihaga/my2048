@@ -14,16 +14,16 @@ import com.demo.springdemo.model.MoveResult;
 import com.demo.springdemo.model.Score;
 import com.demo.springdemo.service.function.Functions;
 import com.demo.springdemo.service.function.model.CellInfoWapper;
-import com.demo.springdemo.service.function.model.CellInfoWapperImpl;
+import com.demo.springdemo.service.function.model.CellInfoWapperElementInLine;
+import com.demo.springdemo.service.function.model.WrapperElementInLine;
 
 @Service
 public class MoveService {
 	
 	public MoveResult move(BoardStatus status,Direction direction) {
 		
-		Map<Integer, List<CellInfoWapperImpl>> linesMap = status.getStatus().stream()
-				.map(e -> new CellInfoWapperImpl(e,direction))
-				.sorted()
+		Map<Integer, List<CellInfoWapperElementInLine>> linesMap = status.getStatus().stream()
+				.map(e -> new CellInfoWapperElementInLine(e,direction))
 				.collect(Collectors.groupingBy(e -> e.getGroup()));
 
 		List<Score> scores = new ArrayList<>();
@@ -31,10 +31,10 @@ public class MoveService {
 		
 		linesMap.entrySet().stream()
 			.forEach(e -> {
-				List<? extends CellInfoWapper<CellInfo>> moved = Functions.moveLine(e.getValue());
-				for(CellInfoWapper<CellInfo> wapper : moved) {
-					scores.add(wapper.getScore());
-					cells.add(CellInfoWapper.unwrap(wapper));
+				List<? extends WrapperElementInLine<CellInfoWapper>> moved = Functions.moveLine(e.getValue());
+				for(WrapperElementInLine<CellInfoWapper> wapper : moved) {
+					scores.add(wapper.unwrap().getScore());
+					cells.add(wapper.unwrap().getCellInfo());
 				}
 			});
 		

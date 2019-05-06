@@ -53,6 +53,9 @@ export default {
             '@': src
         }
     },
+    devServer: {
+        port: 3000,
+    },
 
     plugins: [
         new HtmlWebpackPlugin({

@@ -4,8 +4,6 @@ const val2component = (Component, prop) => (value, index) => <Component {...{ [p
 
 const convertCellsArray = cells => {
 
-    console.log(cells);
-
     const getNumber = (x,y) => {
         const res = cells.find(e => e.address.x == x && e.address.y == y);
         return res ? res.value : "None";
@@ -13,9 +11,7 @@ const convertCellsArray = cells => {
 
     const o2f = [0,1,2,3];
 
-    
-    console.log(o2f.map(x => o2f.map(y => getNumber(x,y))));
-    return o2f.map(x => o2f.map(y => getNumber(x,y)))
+    return o2f.map(y => o2f.map(x => getNumber(x,y)))
 
 }
 

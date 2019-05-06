@@ -1,11 +1,12 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
+import axios from '@/wrappers/axios'
 
-const api = arg => new Promise(res => setTimeout(() => res([{address:{x:2,y:3},value:arg.direction}]),500));
+const api = arg => axios.post("/move",arg).then(res => ({score:res.data.score,cells:res.data.status}));
 
 const task = function* (action) {
     const {direction,token} = action;
-    const cells = yield call(api,{direction,token});
-    yield put({type:"CELLS_FETCHED",cells})
+    const {cells,score} = yield call(api,{direction,token});
+    yield put({type:"CELLS_FETCHED",cells,score})
 }
 
 export default takeEvery("REQUEST_MOVE", task);

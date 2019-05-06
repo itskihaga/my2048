@@ -1,7 +1,8 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
+import axios from '@/wrappers/axios'
 
 const api = () => {
-    return new Promise(res => setTimeout(() => res({cells:[],token:1})));
+    return axios.post("/start").then(res => ({token:res.data.token,cells:res.data.status}));
 }
 
 const task = function* () {

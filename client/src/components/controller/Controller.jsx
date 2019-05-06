@@ -6,14 +6,14 @@ class Controller extends React.Component {
         return (
             <div className="tt48-controller">
                 <div>
-                    <button {...props("U")}>上</button>
+                    <button {...props("Up")}>上</button>
                 </div>
                 <div>
-                    <button {...props("R")}>右</button>
-                    <button {...props("L")}>左</button>
+                    <button {...props("Left")}>左</button>
+                    <button {...props("Right")}>右</button>
                 </div>
                 <div>
-                    <button {...props("D")}>下</button>
+                    <button {...props("Down")}>下</button>
                 </div>
             </div>
         );

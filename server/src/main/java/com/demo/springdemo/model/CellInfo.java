@@ -2,15 +2,15 @@ package com.demo.springdemo.model;
 
 public class CellInfo {
 	
-	public CellInfo(CellNumber value, Address address) {
+	public CellInfo(CellValue value, Address address) {
 		this.value = value;
 		this.address = address;
 	}
 
-	private CellNumber value;
+	private CellValue value;
 	private Address address;
 	
-	public CellNumber getValue() {
+	public CellValue getValue() {
 		return value;
 	}
 	public Address getAddress() {

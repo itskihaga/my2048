@@ -2,13 +2,13 @@ package com.demo.springdemo.service.function.model;
 
 import com.demo.springdemo.model.Address;
 import com.demo.springdemo.model.CellInfo;
-import com.demo.springdemo.model.CellNumber;
+import com.demo.springdemo.model.CellValue;
 import com.demo.springdemo.model.Direction;
 import com.demo.springdemo.model.Score;
 import com.demo.springdemo.model.Address.XY;
 
 public class CellInfoWapperElementInLine extends WrapperElementInLine<CellInfoWapper>{
-	
+
 	private final Direction direction;
 	private final CellInfoWapper unwrap;
 
@@ -16,20 +16,20 @@ public class CellInfoWapperElementInLine extends WrapperElementInLine<CellInfoWa
 		this.unwrap = new CellInfoWapper(cellInfo);
 		this.direction = direction;
 	}
-	
+
 	private CellInfoWapperElementInLine(CellInfo cellInfo, Score score,Direction direction) {
 		this.unwrap = new CellInfoWapper(cellInfo,score);
 		this.direction = direction;
 	}
-	
+
 	@Override
 	public CellInfoWapperElementInLine merge() {
-		
-		CellNumber doubled = cellInfo().getValue().getDoubleNumber();
-		
+
+		CellValue doubled = cellInfo().getValue().getDoubleNumber();
+
 		return new CellInfoWapperElementInLine(
 				new CellInfo(
-						doubled, 
+						doubled,
 						cellInfo().getAddress()
 				),
 				new Score(doubled.getNumber()),
@@ -41,7 +41,7 @@ public class CellInfoWapperElementInLine extends WrapperElementInLine<CellInfoWa
 	public Integer getPoint() {
 		return virtualPointToRealPoint(cellInfo().getAddress().get(getXY()));
 	}
-	
+
 	public Integer getGroup() {
 		return unwrap.getCellInfo().getAddress().get(getXY().reverse());
 	}
@@ -51,12 +51,12 @@ public class CellInfoWapperElementInLine extends WrapperElementInLine<CellInfoWa
 		Address address = _move(at);
 		return new CellInfoWapperElementInLine(new CellInfo(cellInfo().getValue(), address),this.direction);
 	}
-	
+
 	private Address _move(int at) {
 		return cellInfo().getAddress().move(getXY(), virtualPointToRealPoint(at));
 	}
-	
-	public Address.XY getXY(){
+
+	private Address.XY getXY(){
 		switch (direction) {
 			case Left:
 			case Right:
@@ -68,8 +68,8 @@ public class CellInfoWapperElementInLine extends WrapperElementInLine<CellInfoWa
 				return null;
 		}
 	}
-	
-	public Integer virtualPointToRealPoint(Integer vp) {
+
+	private Integer virtualPointToRealPoint(Integer vp) {
 		switch (direction) {
 			case Left:
 			case Up:
@@ -91,7 +91,7 @@ public class CellInfoWapperElementInLine extends WrapperElementInLine<CellInfoWa
 	public CellInfoWapper unwrap() {
 		return unwrap;
 	}
-	
+
 	private CellInfo cellInfo() {
 		return unwrap.getCellInfo();
 	}

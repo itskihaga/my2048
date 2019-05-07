@@ -1,4 +1,4 @@
-import { put, call, takeEvery } from 'redux-saga/effects';
+import { put, call, takeLeading } from 'redux-saga/effects';
 import axios from '@/wrappers/axios'
 
 const api = arg => axios.post("/move",arg).then(res => ({score:res.data.score,cells:res.data.status}));
@@ -9,4 +9,4 @@ const task = function* (action) {
     yield put({type:"CELLS_FETCHED",cells,score})
 }
 
-export default takeEvery("REQUEST_MOVE", task);
+export default takeLeading("REQUEST_MOVE", task);

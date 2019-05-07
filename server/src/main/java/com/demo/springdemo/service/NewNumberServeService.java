@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import com.demo.springdemo.model.Address;
 import com.demo.springdemo.model.BoardStatus;
 import com.demo.springdemo.model.CellInfo;
-import com.demo.springdemo.model.CellNumber;
+import com.demo.springdemo.model.CellValue;
 
 @Service
 public class NewNumberServeService {
@@ -35,7 +35,7 @@ public class NewNumberServeService {
 		return new BoardStatus(
 				Stream.concat(
 					old.getStatus().stream(), 
-					Stream.of(new CellInfo(new CellNumber((long) ((getRnd(2) + 1) * 2)), address))
+					Stream.of(new CellInfo(new CellValue((long) ((getRnd(2) + 1) * 2)), address))
 				)
 				.collect(Collectors.toList())
 			) ; 

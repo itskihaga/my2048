@@ -1,23 +1,18 @@
 import React from 'react';
 import { Motion,spring,presets} from 'react-motion';
 
- 
 const zeroToThree = [0,1,2,3];
 
 const convertCellsArray = cells => {
-
     const getNumber = (x,y) => {
         const res = cells.find(e => e.address.x == x && e.address.y == y);
         return res || {address:{x,y},value:"None"};
     }
-
     return zeroToThree.map(x => zeroToThree.map(y => getNumber(x,y)))
-
 }
 
 class Box extends React.Component {
     render() {
-        console.log(this.props.moveIn)
         return (
             <div>
                 <div className="tt-48-box-bg">
@@ -56,16 +51,16 @@ const Cell = ({value,moveIn}) => {
 
     return (
         <Motion style={motionStyle} onRest={()=>console.log(value)}>
-            {interpolatingStyle => {
-                return (
-                    <div style={{...style,...toEm(interpolatingStyle)}} className="tt-48-cell">
-                        <div className={value.value == "None" ? "tt-48-cell-content-none" : "tt-48-cell-content"}>{value.value}</div>
-                    </div>
-                )
-            }}
+            {interpolatingStyle => <_Cell style={moveIn ? {...style,...toEm(interpolatingStyle)} : style} value={value.value} />}
         </Motion>
     )
 }
+
+const _Cell = ({style,value}) => (
+    <div style={style} className="tt-48-cell">
+        <div className={value == "None" ? "tt-48-cell-content-none" : "tt-48-cell-content"}>{value}</div>
+    </div>
+)
 
 const NUM = 3;
 
@@ -157,19 +152,12 @@ class TransitionSample extends React.Component {
     }
 
     render(){
-
         const onClick = dir => {
-            console.log("onClickBefore",this.state.cells);
             this.setState({
                 cells:moveCells(dir)(this.state.cells),
                 moveIn:true
             });
-            console.log("onClickAfter",this.state.cells);
             setTimeout(onExited,500)
-        }
-
-        const setCells = (cells,moveIn)=>{
-            this.setState({cells,moveIn});
         }
 
         const onExited = () => {
@@ -178,19 +166,25 @@ class TransitionSample extends React.Component {
                 cells:this.state.cells.map(e => e.move ? {address:e.move,value:e.value} : e),
                 moveIn:false
             });
-            console.log("onExitedAfter",this.state.cells);
         }
-
-        console.log(this.state.moveIn);
-
         return (
             <div className="sample">
-                <div>
-                    {Object.keys(DIRECTIONS).map(e => <button key={e} onClick={() => onClick(e)}>{e}</button>)}
-                </div>
+                <div>{Object.keys(DIRECTIONS).map(e => <button key={e} onClick={() => onClick(e)}>{e}</button>)}</div>
                 <Box cells={this.state.cells} moveIn={this.state.moveIn} onExited={onExited}/>
                 <div style={{height:"1em"}}/>
-                {/* <Box2 cells={this.state.cells} moveIn={this.state.moveIn} onExited={onExited}/> */}
+                <div style={{width:"10em",height:"10em",backgroundColor:"gray",position:"relative"}}>
+                    <div style={{width:0,height:0}}>
+                        <div style={{width:"1em",height:"1em",position:"relative",backgroundColor:"black"}}>
+
+                        </div>
+                    </div>
+                    <div style={{width:0,height:0}}>
+                        <div style={{width:"1em",height:"1em",top:"1em",position:"relative", backgroundColor:"black"}}>
+
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         )
 

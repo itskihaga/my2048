@@ -16,6 +16,10 @@ $cell-width : 3em;
         height:$waku-width * 4 + $cell-width * 4;
         background-color: #e6e6e6;
     }
+    .no-length{
+        width:0;
+        height: 0;
+    }
     .box2 {
         display: inline-block;
         .tt-48-cell{

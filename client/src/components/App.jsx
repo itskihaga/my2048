@@ -4,6 +4,7 @@ import Playing from '@/components/playing/Playing';
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Link ,Switch } from 'react-router-dom'
 import TransitionSample from '@/components/sample/TransitionSample'
+import TransitionSample2 from '@/components/sample/TransitionSample2'
 
 class App extends React.Component {
     render() {
@@ -15,6 +16,9 @@ class App extends React.Component {
                     </Route>
                     <Route exact path="/sample1">
                         <TransitionSample />
+                    </Route>
+                    <Route exact path="/sample2">
+                        <TransitionSample2 />
                     </Route>
                 </Switch>
                 <Link to='/sample1'>sample1</Link>

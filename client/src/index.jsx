@@ -10,6 +10,7 @@ import logger from 'redux-logger'
 import sagas from './saga'
 import '@/style.scss';
 
+
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(reducers,initState,applyMiddleware(sagaMiddleware,logger));
 

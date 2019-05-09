@@ -56,7 +56,7 @@ export default {
     devServer: {
         port: 3000,
     },
-
+    devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
             template: src + '/index.html',

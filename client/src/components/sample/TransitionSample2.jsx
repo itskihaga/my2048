@@ -1,26 +1,39 @@
 import React from 'react';
-import { Motion,spring,presets} from 'react-motion';
+import { Motion,spring,presets,TransitionMotion} from 'react-motion';
 
+const oneCellSize = 3.5;
 class Box extends React.Component {
     render() {
+        const cellToStyle = e => ({
+            key:"id_" + e.id,
+            data:e,
+            style:{
+                opacity:1
+            }
+        })
+        const willEnter = () => ({opacity:0})
         return (
             <div className="box2">
-                <div className="tt-48-box-bg">
-                    {this.props.cells.map((e)=> <Cell key={e.id} value={e}/>)}
-                </div>
+                <TransitionMotion styles={this.props.cells.map(cellToStyle)} willEnter={willEnter}>
+                    {interpolatedStyles => (
+                        <div className="tt-48-box-bg">
+                            {interpolatedStyles.map(e => <Cell {...e} />)}
+                        </div>
+                    )}
+                </TransitionMotion>
             </div>
         );
     }
 }
-const oneCellSize = 3.5;
 
-const Cell = ({value}) => {
+
+const Cell = ({data,style}) => {
 
     const toMotionStyle = num => spring(num * oneCellSize,presets.gentle);
 
     const motionStyle = {
-        top: toMotionStyle(value.address.y),
-        left: toMotionStyle(value.address.x)
+        top: toMotionStyle(data.address.y),
+        left: toMotionStyle(data.address.x)
     }
 
     const toEm = styles => {
@@ -33,7 +46,7 @@ const Cell = ({value}) => {
 
     return (
         <Motion style={motionStyle} >
-            {interpolatingStyle => <_Cell style={toEm(interpolatingStyle)} value={value.value} />}
+            {interpolatingStyle => <_Cell style={{...toEm(interpolatingStyle),...style}} value={data.value} />}
         </Motion>
     )
 }

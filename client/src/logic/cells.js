@@ -51,7 +51,9 @@ const moveCells = dir => cells => {
     );
 
     const groups = _.group(e => e.group)(cells.map(simplify))
-    return _.flat(groups.map(moveLine)).map(desimplify);
+    const moved =  _.flat(groups.map(moveLine))
+
+    return moved.every(cell => cell.action == ACTIONS.NONE) ? {result:false} : {result:true,cells:moved.map(desimplify)};
 }
 
 const moveLine = line => {

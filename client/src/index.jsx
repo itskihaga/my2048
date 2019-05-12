@@ -30,9 +30,7 @@ window.addEventListener("keydown",event=>{
         ArrowRight:DIRECTIONS.Right,
         ArrowLeft:DIRECTIONS.Left
     }
-
-    console.log(store.getState("cells").cells)
-
+    
     dic[event.key] && store.getState("cells").cells && store.dispatch({type:"REQUEST_MOVE",cells:store.getState("cells").cells,direction:dic[event.key]})
 });
 

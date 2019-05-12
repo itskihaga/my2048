@@ -19,13 +19,12 @@ class Box extends React.Component {
             key:"cell-" + e.id,//数値のkeyを受け付けないので
             data:{cell:e},
             style:{
-                opacity:spring(1,{damping:30,stiffness:80})
+                opacity:spring(1)
             }
         })
-        const willEnter = () => ({opacity:-1})
         return (
             <div className={css.root}>
-                <TransitionMotion styles={this.props.cells.map(cellToStyle)} {...{willEnter}}>
+                <TransitionMotion styles={this.props.cells.map(cellToStyle)} willEnter={() => ({opacity:0})}>
                     {interpolatedStyles => (
                         <div className={css.background}>
                             {interpolatedStyles.map(e => <Cell {...e} />)}
@@ -56,7 +55,7 @@ const Cell = ({data,style}) => {
     }
 
     const localStyle = {
-        zIndex : cell.action == ACTIONS.MERGED ? 1 : 0 
+        zIndex : cell.action == ACTIONS.DISAPPEAR ? 0 : 1 
     }
 
     return (

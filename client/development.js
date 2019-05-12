@@ -30,7 +30,7 @@ export default {
                         loader: 'css-loader',
                         options: {
                             modules: true,
-                            localIdentName:'[name]-[local]-[hash:base64:5]',
+                            localIdentName:'[name]_[local]_[hash:base64:5]',
                             url: false,
                             sourceMap: true,
                             importLoaders: 2

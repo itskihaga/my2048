@@ -2,6 +2,8 @@ import React from 'react';
 import {ACTIONS} from '../../logic/cells'
 import { Motion,spring,TransitionMotion} from 'react-motion';
 import _ from "../../util/underscore";
+import css from "./Box.scss"
+import commonCss from "@/style.scss"
 
 const oneCellSize = 3.5;
 
@@ -22,10 +24,10 @@ class Box extends React.Component {
         })
         const willEnter = () => ({opacity:-1})
         return (
-            <div className="box2">
+            <div className={css.root}>
                 <TransitionMotion styles={this.props.cells.map(cellToStyle)} {...{willEnter}}>
                     {interpolatedStyles => (
-                        <div className="tt-48-box-bg">
+                        <div className={css.background}>
                             {interpolatedStyles.map(e => <Cell {...e} />)}
                         </div>
                     )}
@@ -65,9 +67,9 @@ const Cell = ({data,style}) => {
 }
 
 const _Cell = ({style,value}) => (
-    <div className="no-length">
-        <div {...{style}} className="tt-48-cell">
-            <div style={{backgroundColor:colorMap[value]}} className={"tt-48-cell-content"}>{value}</div>
+    <div className={commonCss.noLength}>
+        <div {...{style}} className={css.cell}>
+            <div style={{backgroundColor:colorMap[value]}} className={css.cellContent}>{value}</div>
         </div>
     </div>
 )

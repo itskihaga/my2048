@@ -39,4 +39,10 @@ const cross = (...arys) => func => {
     
 }
 
-export default {findLast,group,flat,rnd,numbers}
+const supplier = func => init => {
+    let i = init;
+    return () => i = func(i)
+}
+
+
+export default {findLast,group,flat,rnd,numbers,supplier}

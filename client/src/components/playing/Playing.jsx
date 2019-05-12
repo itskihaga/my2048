@@ -7,7 +7,6 @@ class Playing extends React.Component {
         return (
             <div className="center">
                 <Box/>
-                <Controller/>
             </div>
         );
     }

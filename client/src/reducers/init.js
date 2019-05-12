@@ -1,1 +1,1 @@
-export default {cells:null,score:0}
+export default {cells:null}

@@ -1,17 +1,11 @@
 import { put, call, takeLeading } from 'redux-saga/effects';
-import axios from '@/wrappers/axios'
+import {addCell,moveCells,actionExit} from "../logic/cells"
 
-const api = arg => axios.post("/move",arg).then(res => ({score:res.data.score,cells:res.data.status}));
+const api = (cells,direction)=> addCell(moveCells(direction)(actionExit(cells)))
 
 const task = function* (action) {
-    const {direction,token} = action;
-    const {cells,score} = yield call(api,{direction,token});
-
-    yield put({type:"CELLS_FETCHED",cells,score})
-    const movePromise = () => new Promise(res =>{
-        setTimeout(res,500,null);
-    });
-    console.log(yield call(movePromise))
+    const cells = yield call(api,action.cells,action.direction);
+    yield put({type:"CELLS_FETCHED",cells})
 }
 
 export default takeLeading("REQUEST_MOVE", task);

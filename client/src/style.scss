@@ -1,7 +1,3 @@
-// body {
-//     font-size:30px;
-// }
-
 .center {
     margin: auto;
 }
@@ -9,69 +5,51 @@
 $waku-width : 0.5em;
 $cell-width : 3em;
 
-.sample {
-    .tt-48-box-bg {
+.tt-48-box-bg {
+    padding:$waku-width / 2;
+    width:$waku-width * 4 + $cell-width * 4;
+    height:$waku-width * 4 + $cell-width * 4;
+    background-color: #e6e6e6;
+}
+.no-length{
+    width:0;
+    height: 0;
+}
+.box2 {
+    display: inline-block;
+    .tt-48-cell{
+        position: relative;
         padding:$waku-width / 2;
-        width:$waku-width * 4 + $cell-width * 4;
-        height:$waku-width * 4 + $cell-width * 4;
-        background-color: #e6e6e6;
-    }
-    .no-length{
-        width:0;
-        height: 0;
-    }
-    .box2 {
-        display: inline-block;
-        .tt-48-cell{
-            position: relative;
-            padding:$waku-width / 2;
-            .tt-48-cell-content{
-                width:100%;
-                height:100%;
-                background-color: #aeda90;
-                text-align: center;
-                vertical-align: middle;
-            }
-            width:$cell-width;
-            height:$cell-width;
+        .tt-48-cell-content{
+            width:100%;
+            height:100%;
+            text-align: center;
+            vertical-align: middle;
+            border-radius: 5px;
         }
+        width:$cell-width;
+        height:$cell-width;
     }
-    .tt-48-cell-clm{
-        display: inline-block;
-        .tt-48-cell{
-            position: relative;
-            padding:$waku-width / 2;
-            .tt-48-cell-content{
-                width:100%;
-                height:100%;
-                background-color: #aeda90;
-                text-align: center;
-                vertical-align: middle;
-            }
-            .tt-48-cell-content-none{
-                width:100%;
-                height:100%;
-                visibility: hidden;
-            }
-            width:$cell-width;
-            height:$cell-width;
+}
+.tt-48-cell-clm{
+    display: inline-block;
+    .tt-48-cell{
+        position: relative;
+        padding:$waku-width / 2;
+        .tt-48-cell-content{
+            width:100%;
+            height:100%;
+            background-color: #aeda90;
+            text-align: center;
+            vertical-align: middle;
         }
+        .tt-48-cell-content-none{
+            width:100%;
+            height:100%;
+            visibility: hidden;
+        }
+        width:$cell-width;
+        height:$cell-width;
     }
 }
 
-
-
-.tt48-box,table {
-    
-    border: 2px #808080 solid;
-    border-collapse: collapse;
-    
-
-    td {
-        color: red;
-        text-align: center;
-        vertical-align: middle;
-        width: 1.5em;
-        height: 1.5em;
-    }
-}

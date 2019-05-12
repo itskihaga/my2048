@@ -1,10 +1,8 @@
 export default (state,action) => {
-    const {cells,token,type,score} = action;
+    const {cells,type} = action;
     switch (type) {
-        case "INIT_FETCHED":
-            return Object.assign({},state,{cells,token});
         case "CELLS_FETCHED": 
-            return Object.assign({},state,{cells,score});
+            return Object.assign({},state,{cells});
         default: 
             return state;
     }

@@ -1,13 +1,11 @@
 import { put, call, takeLeading } from 'redux-saga/effects';
-import axios from '@/wrappers/axios'
+import {addCell} from "../logic/cells"
 
-const api = () => {
-    return axios.post("/start").then(res => ({token:res.data.token,cells:res.data.status}));
-}
+const api = () => addCell(addCell([]))
 
 const task = function* () {
-    const {cells,token} = yield call(api);
-    yield put({type:"INIT_FETCHED",cells,token})
+    const cells = yield call(api);
+    yield put({type:"CELLS_FETCHED",cells})
 }
 
 export default takeLeading("REQUEST_INIT", task);

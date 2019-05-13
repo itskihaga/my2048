@@ -1,6 +1,6 @@
 import React from 'react';
-import Start from '@/components/start/StartAdaptor';
 import Playing from '@/components/playing/Playing';
+import CellSample from "@/components/sample/CellSample"
 import { connect } from 'react-redux';
 import { BrowserRouter, Route ,Switch } from 'react-router-dom'
 
@@ -10,7 +10,10 @@ class App extends React.Component {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/">
-                        {this.props.cells ? <Playing/> : <Start/>}
+                        <Playing/>
+                    </Route>
+                    <Route exact path="/sample">
+                        <CellSample/>
                     </Route>
                 </Switch>
             </BrowserRouter>

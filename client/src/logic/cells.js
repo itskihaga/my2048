@@ -74,7 +74,6 @@ const moveLine = line => {
     return line.reduce(_moveLine,line);
 }
 
-
 let uniqueId = 0;
 
 const addCell = cells => {

@@ -1,17 +1,11 @@
 import React from 'react';
 import {ACTIONS} from '../../logic/cells'
 import { Motion,spring,TransitionMotion} from 'react-motion';
-import _ from "../../util/underscore";
 import css from "./Box.scss"
 import commonCss from "@/style.scss"
+import Cell from "./Cell"
 
-const oneCellSize = 3.5;
-
-const colorMap = function(){
-    const get = _.supplier(e => e * 2)(1);
-    const colors = ["#00FFCC","#00FF99","#00FF66","#00FF33","#00FF00","#0099FF","#0066FF","#0033FF","#0000FF"]
-    return Object.assign(...colors.map(col=>({[get()]:col})));
-}();
+const oneCellSize = 8;
 
 class Box extends React.Component {
     render() {
@@ -27,7 +21,7 @@ class Box extends React.Component {
                 <TransitionMotion styles={this.props.cells.map(cellToStyle)} willEnter={() => ({opacity:0})}>
                     {interpolatedStyles => (
                         <div className={css.background}>
-                            {interpolatedStyles.map(e => <Cell {...e} />)}
+                            {interpolatedStyles.map(e => <CellWrapper {...e} />)}
                         </div>
                     )}
                 </TransitionMotion>
@@ -36,7 +30,7 @@ class Box extends React.Component {
     }
 }
 
-const Cell = ({data,style}) => {
+const CellWrapper = ({data,style}) => {
 
     const toMotionStyle = num => spring(num * oneCellSize);
     const {cell} = data;
@@ -59,18 +53,12 @@ const Cell = ({data,style}) => {
     }
 
     return (
-        <Motion style={motionStyle}>
-            {interpolatingStyle => <_Cell style={{...toEm(interpolatingStyle),...style,...localStyle}} value={cell.value} />}
-        </Motion>
+        <div className={commonCss.noLength}>
+            <Motion style={motionStyle}>
+                {interpolatingStyle => <Cell style={{...toEm(interpolatingStyle),...style,...localStyle}} value={cell.value} />}
+            </Motion>
+        </div>
     )
 }
-
-const _Cell = ({style,value}) => (
-    <div className={commonCss.noLength}>
-        <div {...{style}} className={css.cell}>
-            <div style={{backgroundColor:colorMap[value]}} className={css.cellContent}>{value}</div>
-        </div>
-    </div>
-)
 
 export default Box;

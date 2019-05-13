@@ -1,1 +1,4 @@
-export default {cells:null}
+
+import {addCell} from "../logic/cells"
+
+export default {cells:addCell(addCell([]))}

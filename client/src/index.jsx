@@ -11,7 +11,6 @@ import sagas from './saga'
 import {DIRECTIONS} from "./domain/domains"
 import '@/style.scss';
 
-
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(reducers,initState,applyMiddleware(sagaMiddleware,logger));
 
@@ -30,7 +29,7 @@ window.addEventListener("keydown",event=>{
         ArrowRight:DIRECTIONS.Right,
         ArrowLeft:DIRECTIONS.Left
     }
-    
+
     dic[event.key] && store.getState("cells").cells && store.dispatch({type:"REQUEST_MOVE",cells:store.getState("cells").cells,direction:dic[event.key]})
 });
 

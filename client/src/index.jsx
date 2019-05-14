@@ -23,6 +23,8 @@ render(
 
 window.addEventListener("keydown",event=>{
 
+    event.preventDefault();
+
     const dic = {
         ArrowUp:DIRECTIONS.Up,
         ArrowDown:DIRECTIONS.Down,

@@ -1,11 +1,19 @@
 import React from 'react';
-import {ACTIONS} from '../../logic/cells'
+import {ACTIONS,BOX_SIZE} from "../../domain/domains"
 import { Motion,spring,TransitionMotion} from 'react-motion';
-import css from "./Box.scss"
 import commonCss from "@/style.scss"
 import Cell from "./Cell"
+import styled from "styled-components";
+import {CELL_SIZE,WAKU_SIZE} from "./styleConstants";
 
-const oneCellSize = 8;
+const oneCellSize = CELL_SIZE + WAKU_SIZE;
+
+const Background = styled.div`
+    padding:${WAKU_SIZE / 2}em;
+    width:${oneCellSize * BOX_SIZE}em;
+    height:${oneCellSize * BOX_SIZE}em;
+    background-color: #f6f6f6;
+`
 
 class Box extends React.Component {
     render() {
@@ -17,12 +25,12 @@ class Box extends React.Component {
             }
         })
         return (
-            <div className={css.root}>
+            <div className={commonCss.inlineBlock}>
                 <TransitionMotion styles={this.props.cells.map(cellToStyle)} willEnter={() => ({opacity:0})}>
                     {interpolatedStyles => (
-                        <div className={css.background}>
-                            {interpolatedStyles.map(e => <CellWrapper {...e} />)}
-                        </div>
+                        <Background>
+                            {interpolatedStyles.map(e => <MovingCell {...e} />)}
+                        </Background>
                     )}
                 </TransitionMotion>
             </div>
@@ -30,7 +38,7 @@ class Box extends React.Component {
     }
 }
 
-const CellWrapper = ({data,style}) => {
+const MovingCell = ({data,style}) => {
 
     const toMotionStyle = num => spring(num * oneCellSize);
     const {cell} = data;

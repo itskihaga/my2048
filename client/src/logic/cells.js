@@ -90,4 +90,4 @@ const actionExit = cells => (
         .map(e => Object.assign(e,{action:ACTIONS.NONE}))
 )
 
-export {addCell,moveCells,DIRECTIONS,ACTIONS,actionExit};
+export {addCell,moveCells,actionExit};

@@ -1,7 +1,8 @@
 import axios from "axios";
+import setting from "$setting"
 
 export default axios.create(
     {
-        baseURL:"http://localhost:8080/"
+        baseURL:setting.API_URI_BASE 
     }
 )

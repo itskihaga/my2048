@@ -52,11 +52,13 @@ export default {
         extensions: ['.js', '.jsx'],
         modules: ['node_modules'],
         alias: {
-            '@': src
+            '@': src,
+            '$setting':path.resolve(__dirname, 'context/setting-dev')
         }
     },
     devServer: {
         port: 3000,
+        open:true
     },
     devtool: 'inline-source-map',
     plugins: [

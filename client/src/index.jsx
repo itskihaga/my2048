@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from '@/components/App';
 import reducers from '@/reducers';
-import initState from '@/reducers/init';
 import { createStore ,applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
@@ -12,7 +11,7 @@ import {DIRECTIONS} from "./domain/domains"
 import '@/style.scss';
 
 const sagaMiddleware = createSagaMiddleware()
-const store = createStore(reducers,initState,applyMiddleware(sagaMiddleware,logger));
+const store = createStore(reducers,{cells:[]},applyMiddleware(sagaMiddleware,logger));
 
 render(
     <Provider store={store}>
@@ -32,7 +31,14 @@ window.addEventListener("keydown",event=>{
         ArrowLeft:DIRECTIONS.Left
     }
 
-    dic[event.key] && store.getState("cells").cells && store.dispatch({type:"REQUEST_MOVE",cells:store.getState("cells").cells,direction:dic[event.key]})
+    dic[event.key] && store.getState("cells").cells && 
+    store.dispatch({
+        type:"REQUEST_MOVE",
+        cells:store.getState("cells").cells,
+        token:store.getState("token").token,
+        direction:dic[event.key]
+    })
 });
 
 sagaMiddleware.run(sagas);
+store.dispatch({type:"REQUEST_INIT"})

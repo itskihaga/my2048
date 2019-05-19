@@ -9,7 +9,6 @@ export default {
     entry: {
         main: ['@babel/polyfill',src + '/index.jsx']
     },
-
     output: {
         path: dist,
         filename: 'app.js'
@@ -17,6 +16,12 @@ export default {
 
     module: {
         rules: [
+            {
+                // 拡張子 .ts もしくは .tsx の場合
+                test: /\.tsx?$/,
+                // TypeScript をコンパイルする
+                use: "ts-loader"
+            },
             {
                 test: /\.jsx$/,
                 exclude: /node_modules/,
@@ -49,7 +54,7 @@ export default {
     },
 
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx','ts','tsx'],
         modules: ['node_modules'],
         alias: {
             '@': src,

@@ -1,5 +1,5 @@
 import {addCell,moveCells,actionExit} from "../src/logic/cells"
-import express from "express";
+import * as express from "express";
 import cors from "cors"
 
 const app = express();
@@ -24,6 +24,6 @@ app.post("/api/move",({body},res)=>{
     res.json({cells});
 })
 
-const server = app.listen(3001,()=>{
+app.listen(3001,()=>{
     console.log("Server!");
 })

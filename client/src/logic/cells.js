@@ -1,4 +1,4 @@
-import _ from "../util/underscore"
+import _ from "../util/util.ts"
 import {DIRECTIONS,ACTIONS,BOX_SIZE} from "../domain/domains"
 
 const dirToRule = {

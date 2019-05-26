@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently 'webpack-dev-server' 'webpack --config webpack.dev-server.config.js & wait-a-file ./server/dist/app.js; nodemon server/dist/app'",
+    "dev": "concurrently 'webpack-dev-server' 'webpack --config webpack.server.config.js & wait-a-file server/dist/app.js; nodemon server/dist/app'",
     "build": "webpack",
-    "server": "webpack --config webpack.dev-server.config.js & wait-a-file ./server/dist/app.js; nodemon server/dist/app",
+    "server": "webpack --config webpack.server.config.js & wait-a-file ./server/dist/app.js; nodemon server/dist/app",
     "client": "webpack-dev-server"
   },
   "keywords": [],

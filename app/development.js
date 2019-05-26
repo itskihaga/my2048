@@ -58,7 +58,7 @@ export default {
         modules: ['node_modules'],
         alias: {
             '@': src,
-            '$setting':path.resolve(__dirname, 'context/setting-dev')
+            '$setting':path.resolve(__dirname, 'src','settings','development')
         }
     },
     devServer: {

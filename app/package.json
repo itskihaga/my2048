@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently 'webpack-dev-server --history-api-fallback' 'nodemon server/dist/app & webpack --config webpack.dev-server.config.js'",
+    "dev": "concurrently 'webpack-dev-server' 'webpack --config webpack.dev-server.config.js & wait-a-file ./server/dist/app.js; nodemon server/dist/app'",
     "build": "webpack",
-    "server": "webpack --config webpack.dev-server.config.js & node ./waitBuilt ./server/dist/app.js; nodemon server/dist/app",
-    "client": "webpack-dev-server --history-api-fallback"
+    "server": "webpack --config webpack.dev-server.config.js & wait-a-file ./server/dist/app.js; nodemon server/dist/app",
+    "client": "webpack-dev-server"
   },
   "keywords": [],
   "author": "",
@@ -55,6 +54,7 @@
     "redux-saga": "^1.0.2",
     "source-map-support": "^0.5.12",
     "styled-components": "^4.2.0",
+    "wait-a-file": "../modules/wait-a-file/",
     "webpack-node-externals": "^1.7.2",
     "yarn": "^1.16.0"
   }

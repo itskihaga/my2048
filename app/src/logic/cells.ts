@@ -71,13 +71,9 @@ const moveCells = (dir:Direction) => (cells:Cell[]):Maybe<Cell[]> => {
     );
 
     const groups = _.group((e:Cell) => e.address[rule.group])(cells)
-    console.log(groups)
     const moved : Cell[] = _.flat<Cell>(
         groups.map(group => moveLine(group.values.map(simplify)).map(desimplify(group.key)))
     )
-
-    console.log(moved)
-
     return moved.every(cell => cell.action == Action.NONE) ? {just:false} : {just:true,value:moved};
 }
 

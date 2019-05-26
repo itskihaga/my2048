@@ -1,0 +1,13 @@
+{
+  "name": "wait-a-file",
+  "version": "1.0.0",
+  "description": "wait a file",
+  "main": "libs.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin":"index.js",
+  "private": true,
+  "author": "haga",
+  "license": "ISC"
+}

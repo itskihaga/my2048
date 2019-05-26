@@ -30,5 +30,5 @@ app.post("/api/move",({body},res)=>{
 })
 
 app.listen(3001,()=>{
-    console.log("Server!");
+    console.log("Server is initialzed!");
 })

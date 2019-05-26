@@ -1,29 +1,63 @@
-const findLast = <T>(predicate: (val: T) => Boolean) => (ary: T[]): T => {
-    const _findLast = (index: number): T => (
+const findLast = <T>(predicate: (val: T) => Boolean) => (ary: T[]): T | null => {
+    const _findLast = (index: number): T | null=> (
         index >= 0 ? predicate(ary[index]) ? ary[index] : _findLast(index - 1) : null
     )
     return _findLast(ary.length - 1);
 };
 
-const group = <T>(groupBy: (val: T) => string) => (ary: T[]): T[][] => {
-    const dic: { [key: string]: number; } = {};
-    const res: T[][] = [];
-    let index: number = 0;
+interface Group<K extends StringLike,V> {
+    key:K,
+    values:V[]
+}
+
+const group = <T,K extends StringLike>(groupBy: (val: T) => K) => (ary: T[]): Group<K,T>[]=> {
+    const dict = createDict<K,T[]>();
+    const res: Group<K,T>[] = [];
     for (let e of ary) {
-        const key: string = groupBy(e);
-        if (typeof dic[key] === "undefined") {
-            res.push([e]);
-            dic[key] = index;
-            index++;
+        const key: K = groupBy(e);
+        const values = dict.get(key);
+        if (typeof values === "undefined") {
+            const newValues : T[]= [e]
+            dict.put(key,newValues)
+            res.push({
+                values:newValues,
+                key:key
+            })
         } else {
-            res[dic[key]].push(e);
+            values.push(e);
         }
     }
     return res;
 };
 
-const flat = (ary, depth = 1) => (
-    depth > 0 ? ary.reduce((prev, cur) => [...prev, ...flat(cur, depth - 1)], []) : ary
+interface StringLike {
+    toString:()=>string
+}
+
+interface Dict<K extends StringLike,T> {
+    put:(key:K,value:T)=>void,
+    get:(key:K) => T | undefined
+}
+
+const createDict = <K extends StringLike,T>():Dict<K,T> => {
+    const dict :{[key:string]:T}= {};
+    return {
+        put(key:K,value:T){
+            dict[key.toString()] = value
+        },
+        get(key:K):T | undefined{
+            return dict[key.toString()] 
+        }
+    }
+}
+
+
+interface FlattenableArray<T>{
+    [index: number]: T | FlattenableArray<T>;
+}
+
+const flat = <T>(ary:FlattenableArray<T>, depth:number = 1):T[] => (
+    depth > 0 ? ary instanceof Array ? ary.reduce((prev, cur) => [...prev, ...flat(cur, depth - 1)], []) : ary : ary
 );
 
 const rnd = (num: number): number => Math.floor(Math.random() * num);
@@ -39,4 +73,6 @@ const supplier = <T>(func: (val: T) => T) => (init: T): (() => T) => {
     return () => i = func(i)
 }
 
+
 export default { findLast, group, flat, rnd, numbers, supplier }
+

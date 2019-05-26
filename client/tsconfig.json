@@ -2,6 +2,7 @@
     "compilerOptions": {
       "sourceMap": true,
       // TSはECMAScript 5に変換
+      "strict": true, 
       "target": "es5",
       // TSのモジュールはES Modulesとして出力
       "module": "es2015",
@@ -9,10 +10,16 @@
       "jsx": "react",
       "moduleResolution": "node",
       "lib": [
-        "es2019",
+        "es2017",
         "dom"
       ],
+      "baseUrl":".",
       "rootDir": ".",
-      "outDir": "/server/dist"
-    }
+      "paths": {
+        "@/*": ["src/*"]
+      }
+    },
+    "exclude": [
+      "node_modules"
+    ]
   }

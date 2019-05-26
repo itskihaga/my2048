@@ -1,5 +1,5 @@
 import React from 'react';
-import {ACTIONS,BOX_SIZE} from "../../domain/domains"
+import {Action,BOX_SIZE} from "../../logic/constants"
 import { Motion,spring,TransitionMotion} from 'react-motion';
 import commonCss from "@/style.scss"
 import Cell from "./Cell"
@@ -57,7 +57,7 @@ const MovingCell = ({data,style}) => {
     }
 
     const localStyle = {
-        zIndex : cell.action == ACTIONS.DISAPPEAR ? 0 : 1 
+        zIndex : cell.action == Action.DISAPPEAR ? 0 : 1 
     }
 
     return (

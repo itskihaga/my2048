@@ -18,7 +18,7 @@ export default {
         rules: [
             {
                 // 拡張子 .ts もしくは .tsx の場合
-                test: /\.tsx?$/,
+                test: /\.ts?$/,
                 // TypeScript をコンパイルする
                 use: "ts-loader"
             },
@@ -54,7 +54,7 @@ export default {
     },
 
     resolve: {
-        extensions: ['.js', '.jsx','ts','tsx'],
+        extensions: ['.js', '.jsx','.ts','.tsx'],
         modules: ['node_modules'],
         alias: {
             '@': src,
@@ -65,7 +65,6 @@ export default {
         port: 3000,
         open:true
     },
-    devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
             template: src + '/index.html',

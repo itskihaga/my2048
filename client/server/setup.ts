@@ -1,13 +1,14 @@
 import {addCell,moveCells,actionExit} from "../src/logic/cells"
 import * as express from "express";
-import cors from "cors"
+import * as cors from "cors"
+import { Cell } from "@/logic/constants";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 let cnt = 0;
-const repository = {};
+const repository :{[key:string]:{cells:Cell[]}}= {};
 
 app.post("/api/init",(_,res)=>{
     const cells = addCell(addCell([]));
@@ -19,9 +20,13 @@ app.post("/api/init",(_,res)=>{
 app.post("/api/move",({body},res)=>{
     const prev = repository[body.token];
     const moved = moveCells(body.direction)(actionExit(prev.cells))
-    const cells = addCell(moved.cells)
-    repository[body.token] = {cells}
-    res.json({cells});
+    if(moved.just){
+        const cells = addCell(moved.value)
+        repository[body.token] = {cells}
+        res.json({cells});
+    } else {
+        throw new Error("データ不整合")
+    }
 })
 
 app.listen(3001,()=>{

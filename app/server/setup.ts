@@ -1,7 +1,7 @@
-import {addCell,moveCells,actionExit} from "../src/logic/cells"
+import {addCell,moveCells,actionExit} from "@/domain/service/service"
 import * as express from "express";
 import * as cors from "cors"
-import { Cell } from "@/logic/constants";
+import { Cell } from "@/domain/model/model";
 
 const app = express();
 app.use(express.json());

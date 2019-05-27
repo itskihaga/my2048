@@ -1,5 +1,5 @@
 import { put, call, takeLeading } from 'redux-saga/effects';
-import {moveCells,actionExit} from "../logic/cells";
+import {moveCells,actionExit} from "@/domain/service/service";
 import axios from "../wrappers/axios";
 
 const move = (cells,direction)=> moveCells(direction)(actionExit(cells))

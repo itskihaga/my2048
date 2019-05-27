@@ -1,9 +1,10 @@
-import _  from "@/util/util"
+import _ from "@/util/util"
 import {Maybe} from "@/util/types"
-import {Direction,Action,BOX_SIZE, Cell,CellValue,Address} from "./constants"
+import {Direction,Action,Cell,Address} from "@/domain/model/model"
+import {BOX_SIZE} from "@/domain/model/constants"
 
-interface RuleOfDirection {
-    [key:string]:Rule
+type RuleOfDirection = {
+    readonly [_ in Direction]:Rule
 }
 type XorY = "x" | "y"
 
@@ -16,22 +17,22 @@ interface Rule {
 const toAddress = (dic:{[key:string]:number}):Address=>({x:dic.x,y:dic.y})
 
 const dirToRule : RuleOfDirection = {
-    [Direction.Up]:{
+    Up:{
         point:"y",
         group:"x",
         conv:e => e
     },
-    [Direction.Down]:{
+    Down:{
         point:"y",
         group:"x",
         conv:e => BOX_SIZE - 1 - e
     },
-    [Direction.Left]:{
+    Left:{
         point:"x",
         group:"y",
         conv:e => e
     },
-    [Direction.Right]:{
+    Right:{
         point:"x",
         group:"y",
         conv:e => BOX_SIZE - 1 - e
@@ -41,7 +42,7 @@ const dirToRule : RuleOfDirection = {
 interface LineElement {
     id:number,
     point:number,
-    value:CellValue,
+    value:number,
     action:Action
 }
 
@@ -72,44 +73,45 @@ const moveCells = (dir:Direction) => (cells:Cell[]):Maybe<Cell[]> => {
 
     const groups = _.group((e:Cell) => e.address[rule.group])(cells)
     const moved : Cell[] = _.flat<Cell>(
-        groups.map(group => moveLine(group.values.map(simplify)).map(desimplify(group.key)))
+        groups.map(([key,values]) => moveLine(values.map(simplify)).map(desimplify(key)))
     )
-    return moved.every(cell => cell.action == Action.NONE) ? {just:false} : {just:true,value:moved};
+    return moved.every(cell => cell.action == "None") ? {just:false} : {just:true,value:moved};
 }
 
 
 const moveLine = (line:LineElement[]):LineElement[] => {
     line.sort((a,b) => a.point - b.point);
     const _moveLine = (current:LineElement[],tag:LineElement) => {
-        const shototsu = _.findLast((e:LineElement) => !(e.action == Action.DISAPPEAR) && e.point < tag.point)(current);
-        const merge : boolean = !!shototsu && shototsu.value == tag.value && !(shototsu.action == Action.MERGED)
+        const shototsu = _.findLast((e:LineElement) => !(e.action == "Removal") && e.point < tag.point)(current);
+        const merge : boolean = !!shototsu && shototsu.value == tag.value && !(shototsu.action == "Merged")
         const moveTo : number = shototsu ? merge ? shototsu.point : shototsu.point + 1 : 0
-        const assignee = {
+        const assignee :{point:number,action:Action} = {
             point:moveTo,
-            action:merge ? Action.DISAPPEAR : moveTo == tag.point ? Action.NONE : Action.MOVE
+            action:merge ? "Removal" : moveTo == tag.point ? "None" : "Move"
         }
         return current.map(e => {
             return e.id == tag.id ? Object.assign(e,assignee) : 
-            merge && shototsu && shototsu.id == e.id ? Object.assign(e,{value:e.value * 2,action:Action.MERGED}) : e
+            merge && shototsu && shototsu.id == e.id ? Object.assign(e,{value:e.value * 2,action:"Merged"}) : e
         })
     };
     return line.reduce(_moveLine,line);
 }
 
-let uniqueId = 0;
+//FIXME
+const uniqueId = _.supplier<number>(e => e + 1)(0)
 
 const addCell = (cells : Cell[]):Cell[]=> {
     const nums = [];
     for(let x of _.numbers(BOX_SIZE)) for(let y of _.numbers(BOX_SIZE))
         if(!cells.find(e => e.address.x == x && e.address.y == y)) nums.push({address:{x,y}})
     const index = _.rnd(nums.length)
-    return [...cells,{id:uniqueId++,address:nums[index].address,value:2,action:Action.NONE}]
+    return [...cells,{id:uniqueId(),address:nums[index].address,value:2,action:"None"}]
 }
 
 const actionExit = (cells : Cell[]):Cell[] => (
     cells
-        .filter(e => e.action != Action.DISAPPEAR)
-        .map(e => Object.assign(e,{action:Action.NONE}))
+        .filter(e => e.action != "Removal")
+        .map(e => Object.assign(e,{action:"None"}))
 )
 
 export {addCell,moveCells,actionExit};

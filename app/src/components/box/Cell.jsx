@@ -1,5 +1,5 @@
 import React from 'react';
-import util from "../../util/underscore";
+import util from "@/util/util";
 
 import styled from "styled-components";
 import {CELL_SIZE,WAKU_SIZE} from "./styleConstants";

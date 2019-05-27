@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger'
 import sagas from './saga'
-import {Direction} from "./logic/constants"
 import '@/style.scss';
 
 const sagaMiddleware = createSagaMiddleware()
@@ -25,10 +24,10 @@ window.addEventListener("keydown",event=>{
     event.preventDefault();
 
     const dic = {
-        ArrowUp:Direction.Up,
-        ArrowDown:Direction.Down,
-        ArrowRight:Direction.Right,
-        ArrowLeft:Direction.Left
+        ArrowUp:"Up",
+        ArrowDown:"Down",
+        ArrowRight:"Right",
+        ArrowLeft:"Left"
     }
 
     dic[event.key] && store.getState("cells").cells && 

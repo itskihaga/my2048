@@ -1,5 +1,5 @@
 
-type Maybe<T>  = Just<T> | Nothing
+type Maybe<T> = Just<T> | Nothing
 
 interface Just<T> {
     just:true,

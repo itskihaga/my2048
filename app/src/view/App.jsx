@@ -1,6 +1,6 @@
 import React from 'react';
-import Playing from '@/components/playing/Playing';
-import CellSample from "@/components/sample/CellSample"
+import Playing from '@/view/templates/Playing';
+import CellSample from "@/view/templates/CellSample";
 import { connect } from 'react-redux';
 import { BrowserRouter, Route ,Switch } from 'react-router-dom'
 

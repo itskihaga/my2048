@@ -1,5 +1,5 @@
 import { put, call, takeLeading } from 'redux-saga/effects';
-import axios from "../wrappers/axios";
+import axios from "@/libs/axios";
 
 const api = () => axios.post("/api/init").then(res => res.data)
 

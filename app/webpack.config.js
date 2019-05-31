@@ -18,7 +18,7 @@ module.exports = {
         rules: [
             {
                 // 拡張子 .ts もしくは .tsx の場合
-                test: /\.ts?$/,
+                test: [/\.ts$/,/\.tsx$/],
                 // TypeScript をコンパイルする
                 use: "ts-loader"
             },

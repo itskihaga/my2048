@@ -1,4 +1,4 @@
-import Box from "./Box";
+import Board from "@/view/organisms/board/Board";
 import { connect } from 'react-redux';
 
 const state2props = state => (
@@ -7,4 +7,4 @@ const state2props = state => (
     }
 )
 
-export default connect(state2props)(Box)
+export default connect(state2props)(Board)

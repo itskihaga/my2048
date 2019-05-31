@@ -1,6 +1,6 @@
 import { put, call, takeLeading } from 'redux-saga/effects';
 import {moveCells,actionExit} from "@/domain/service/service";
-import axios from "../wrappers/axios";
+import axios from "@/libs/axios";
 
 const move = (cells,direction)=> moveCells(direction)(actionExit(cells))
 const sendToserver = params => Promise.all([new Promise(res=>setTimeout(res,100)),axios.post("/api/move",params).then(res => res.data)]);

@@ -1,5 +1,5 @@
 import React from 'react';
-import Cell from "../box/Cell";
+import Cell from "@/view/organisms/board/molecules/CellContainer";
 import util from "@/util/util"
 
 const supplier = util.supplier(e => e * 2)(1)

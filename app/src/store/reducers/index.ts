@@ -1,4 +1,4 @@
-import {Action} from "@/store/actions/actions"
+import Action from "@/store/actions"
 import {AppState} from "@/domain/model/model"
 import _ from "@/util/util"
 

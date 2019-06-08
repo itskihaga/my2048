@@ -7,7 +7,7 @@ const dist = path.resolve(__dirname, 'dist')
 module.exports = {
     mode: 'development',
     entry: {
-        main: ['@babel/polyfill',src + '/index.jsx']
+        main: ['@babel/polyfill',src + '/index.ts']
     },
     output: {
         path: dist,
@@ -17,13 +17,7 @@ module.exports = {
     module: {
         rules: [
             {
-                // 拡張子 .ts もしくは .tsx の場合
-                test: [/\.ts$/,/\.tsx$/],
-                // TypeScript をコンパイルする
-                use: "ts-loader"
-            },
-            {
-                test: /\.jsx$/,
+                test: [/\.js$/,/\.jsx$/,/\.tsx$/,/\.ts$/],
                 exclude: /node_modules/,
                 loader: 'babel-loader'
             },

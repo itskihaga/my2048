@@ -1,6 +1,6 @@
 import {Store} from "redux"
 import {AppState,Direction} from "@/domain/model/model"
-import {Action} from "@/store/actions/actions"
+import Action from "@/store/actions"
 
 const dic :[string,Direction][]= [
     ["ArrowUp","Up"],

@@ -1,22 +1,26 @@
 import {Cell,Direction} from "@/domain/model/model"
 
-type Action = ActionCellsFetched | ActionInitFetched | RequestMove
-interface ActionCellsFetched {
+type Action = CellsFetched | InitFetched | RequestMove | RequestInit
+export interface CellsFetched {
     type:"CELLS_FETCHED",
     cells:Cell[]
 }
 
-interface ActionInitFetched {
+export interface InitFetched {
     type:"INIT_FETCHED",
     cells:Cell[],
     token:string
 }
 
-interface RequestMove {
+export interface RequestMove {
     type:"REQUEST_MOVE",
     direction:Direction,
     cells:Cell[],
     token:string
 }
 
-export {Action,ActionCellsFetched,ActionInitFetched,RequestMove}
+export interface RequestInit {
+    type:"REQUEST_INIT"
+}
+
+export default Action

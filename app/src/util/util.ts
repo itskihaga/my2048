@@ -41,7 +41,7 @@ const supplier = <T>(func: (val: T) => T) => (init: T): (() => T) => {
     return () => i = func(i)
 }
 
-const assign = Object.assign.bind({})
+const assign = <T1,T2>(t1:T1,t2:T2):T1 & T2 => Object.assign({},t1,t2)
 
 const wait = (time:number) => new Promise<true>(res => setTimeout(res,time,true))
 

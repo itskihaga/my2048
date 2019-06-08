@@ -90,8 +90,8 @@ const moveLine = (line:LineElement[]):LineElement[] => {
             action:merge ? "Removal" : moveTo == tag.point ? "None" : "Move"
         }
         return current.map(e => {
-            return e.id == tag.id ? Object.assign(e,assignee) : 
-            merge && shototsu && shototsu.id == e.id ? Object.assign(e,{value:e.value * 2,action:"Merged"}) : e
+            return e.id == tag.id ? _.assign(e,assignee) : 
+            merge && shototsu && shototsu.id == e.id ? _.assign(e,{value:e.value * 2,action:"Merged"}) : e
         })
     };
     return line.reduce(_moveLine,line);
@@ -111,7 +111,7 @@ const addCell = (cells : Cell[]):Cell[]=> {
 const actionExit = (cells : Cell[]):Cell[] => (
     cells
         .filter(e => e.action != "Removal")
-        .map(e => Object.assign(e,{action:"None"}))
+        .map(e => _.assign(e,{action:"None"}))
 )
 
 export {addCell,moveCells,actionExit};

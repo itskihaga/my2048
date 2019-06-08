@@ -16,7 +16,11 @@ const Background = styled.div`
     background-color: #f6f6f6;
 `
 
-const Board = ({cells}:{cells:Cell[]}) => {
+export interface BoardProps {
+    cells:Cell[]
+}
+
+const Board = ({cells}:BoardProps) => {
     
     const cellToStyle = (e:Cell) => ({
         key:"cell-" + e.id,//数値のkeyを受け付けないので

@@ -1,6 +1,6 @@
 import requreDir from "@/util/require-dir";
 import { all } from 'redux-saga/effects';
-const sagas = requreDir(require.context(".",false,/saga\.js$/));
+const sagas = requreDir(require.context(".",false,/saga\.ts$/));
 export default function* (){
     yield all(sagas);
 };

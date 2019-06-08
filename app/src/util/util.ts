@@ -41,5 +41,9 @@ const supplier = <T>(func: (val: T) => T) => (init: T): (() => T) => {
     return () => i = func(i)
 }
 
-export default { findLast, group, flat, rnd, numbers, supplier }
+const assign = Object.assign.bind({})
+
+const wait = (time:number) => new Promise<true>(res => setTimeout(res,time,true))
+
+export default { findLast, group, flat, rnd, numbers, supplier,assign ,wait}
 

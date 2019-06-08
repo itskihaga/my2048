@@ -12,5 +12,18 @@ interface Cell {
     value:number,
     action:Action
 }
+type AppState = AppStatePlaying | AppStateBeforePlay
 
-export {Direction,Action,Address,Cell};
+interface AppStatePlaying {
+    stage:"playing"
+    cells:Cell[],
+    token:string
+}
+
+interface AppStateBeforePlay {
+    stage:"before"
+}
+
+
+
+export {Direction,Action,Address,Cell,AppState};

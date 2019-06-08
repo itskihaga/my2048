@@ -16,7 +16,8 @@
       "baseUrl":".",
       "rootDir": ".",
       "paths": {
-        "@/*": ["src/*"]
+        "@/*": ["src/*"],
+        "$setting": ["src/settings"]
       },
       "typeRoots": ["node_modules/@types"]
     },

@@ -3,6 +3,6 @@ import setting from "$setting"
 
 export default axios.create(
     {
-        baseURL:setting.API_URI_BASE 
+        baseURL:setting.API_URI_BASE
     }
 )

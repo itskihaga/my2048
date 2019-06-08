@@ -19,12 +19,10 @@ const map = new Map<number,string>();
 const getColor = (value:number) => map.get(value) || "#CCCCCC"
 
 const Div = styled.div<{value:number}>`
-    font-size: ${({value})=> (CELL_SIZE * 2.5) / (value.toString().length + 4.5) + "em"};
+    font-size: ${({value})=> (CELL_SIZE * 4.5) / (value.toString().length + 10) + "em"};
     background-color:${({value})=> getColor(value)};
     width:100%;
     height:100%;
-    text-align: center;
-    vertical-align: middle;
     border-radius: 5px;
 `
 

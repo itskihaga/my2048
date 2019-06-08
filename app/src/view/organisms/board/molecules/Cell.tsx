@@ -18,8 +18,9 @@ const map = new Map<number,string>();
 
 const getColor = (value:number) => map.get(value) || "#CCCCCC"
 
-const Div = styled.div`
-    font-size: ${CELL_SIZE / 3}em;
+const Div = styled.div<{value:number}>`
+    font-size: ${({value})=> (CELL_SIZE * 2.5) / (value.toString().length + 4.5) + "em"};
+    background-color:${({value})=> getColor(value)};
     width:100%;
     height:100%;
     text-align: center;
@@ -27,4 +28,16 @@ const Div = styled.div`
     border-radius: 5px;
 `
 
-export default ({value}:{value:number}) => <Div style={{backgroundColor:getColor(value)}}>{value}</Div>
+const Text = styled.div`
+    display: inline-block;
+    line-height: 0;
+    margin-top: 48%;
+`
+
+export default ({value}:{value:number}) => (
+    <Div value={value}>
+        <Text>
+            {value}
+        </Text>
+    </Div>
+)

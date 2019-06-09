@@ -7,7 +7,6 @@ const elm = document.getElementById('app')
 if(elm){
     view(elm,store)
     keydown(window,store)
-    store.dispatch({type:"REQUEST_INIT"})
 }
 
 

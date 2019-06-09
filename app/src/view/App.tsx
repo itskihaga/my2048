@@ -4,12 +4,16 @@ import CellSample from "@/view/templates/CellSample";
 import { connect } from 'react-redux';
 import { BrowserRouter, Route ,Switch } from 'react-router-dom'
 import {AppState} from "@/domain/model/model"
+import Landing from "@/view/container/Landing"
+import css from "@/view/style.scss"
 
 const App = ({stage}:{stage:string}) => (
     <BrowserRouter>
         <Switch>
             <Route exact path="/">
-                {stage == "playing" ? <Playing/> : null}
+                <div className={css.center}>
+                    {stage == "playing" ? <Playing/> : <Landing/>}
+                </div>
             </Route>
             <Route exact path="/sample">
                 <CellSample/>

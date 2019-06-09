@@ -15,7 +15,6 @@ export interface InitFetched {
 export interface RequestMove {
     type:"REQUEST_MOVE",
     direction:Direction,
-    cells:Cell[],
     token:string
 }
 

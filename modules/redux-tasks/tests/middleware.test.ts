@@ -1,6 +1,11 @@
-import testee,{Task} from "@/index"
+import testee,{Task,TaskRegistration} from "@/index"
 
 import { createStore ,applyMiddleware } from 'redux';
+
+
+interface Hoge {
+    type:"HOGE"
+}
 
 
 interface Action {
@@ -15,16 +20,18 @@ const reduser = (state:State | undefined,action:Action)=> {
     return state || {message:"hoge"}
 }
 
-const listener1 : Task<State,Action> = async (action,dispatch,state)=>{
+const listener1 : Task<Hoge> = async (action,dispatch,state)=>{
     console.log("HOGE")
     await new Promise(res => setTimeout(res,100))
 }
 
+const taskRegistration : TaskRegistration<"HOGE"> = {
+    type:"HOGE",
+    task:listener1
+}
+
 const store = createStore(reduser,applyMiddleware(testee([
-    {
-        type:"HOGE",
-        task:listener1
-    }
+    taskRegistration
 ])))
 
 test("trial",(done)=>{

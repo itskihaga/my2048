@@ -59,6 +59,7 @@
     "react-transition-group": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.2",
+    "redux-tasks": "../modules/redux-tasks/",
     "source-map-support": "^0.5.12",
     "styled-components": "^4.2.0",
     "wait-a-file": "../modules/wait-a-file/",

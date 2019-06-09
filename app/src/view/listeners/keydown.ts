@@ -23,7 +23,6 @@ export default (window:Window,store: Store<AppState, Action>) => {
             if(state.stage == "playing"){
                 store.dispatch({
                     type:"REQUEST_MOVE",
-                    cells:state.cells,
                     token:state.token,
                     direction:dir
                 })

@@ -1,26 +1,37 @@
 import {Middleware,MiddlewareAPI,Dispatch,AnyAction} from "redux"
 
-interface TaskRegistration<S,A extends AnyAction> {
-    task:Task<S,A>,
-    type:string
+
+interface Action<T extends string> extends AnyAction {
+    type:T
+}
+export interface TaskRegistration<T extends string,S = undefined> {
+    task:Task<Action<T>,S>,
+    type:T
 }
 
-type Task1<S,A extends AnyAction> = (action:A,dispatch:Dispatch<A>,state:S) => Promise<void>
+export const regsterTask = <T extends string,S = undefined>(type:T,task:Task<Action<T>,S>) : TaskRegistration<T,S>=> {
+    return {
+        type,
+        task
+    }
+}
 
-export type Task<S,A extends AnyAction> = Task1<S,A> 
+type Task1<A extends AnyAction,S> = (dispatch:Dispatch<AnyAction>,action:A,state:S) => Promise<void>
 
-export default<S,A extends AnyAction> (tasks : TaskRegistration<S,A> [])=> {
+export type Task<A extends AnyAction,S = undefined> = Task1<A,S> 
+
+export default<S> (tasks : TaskRegistration<any,S> [])=> {
 
     const map = new Map(tasks.map(e => [e.type,e.task]))
     const processings = new Set<string>();
 
-    const middleware : Middleware = (store :MiddlewareAPI<Dispatch<AnyAction>,S>) => (next:Dispatch<A>) => (action:A) => {
+    const middleware : Middleware = (store :MiddlewareAPI<Dispatch<AnyAction>,S>) => (next:Dispatch<AnyAction>) => (action:AnyAction) => {
         const task = map.get(action.type)
         if(task){
             if(!processings.has(action.type)){
                 processings.add(action.type);
                 const del = ()=>processings.delete(action.type)
-                task(action,store.dispatch,store.getState())
+                task(store.dispatch,action,store.getState())
                     .then(del).catch(del)
             }
         } else {
